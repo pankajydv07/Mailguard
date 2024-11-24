@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MailGuard | Ultimate Phishing Protection</title>
+  <link rel="icon" href="logo.png" type="image/png">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav>
+    <div class="nav-logo">
+      <img src="logo.png" alt="MailGuard Logo">
+      <h1>MailGuard</h1>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#stats">Stats</a></li>
+      <li><a href="#analyze">Analyze</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h2>Protect Your Inbox with MailGuard</h2>
+      <p>Secure your inbox with real-time phishing detection and advanced protection tools.</p>
+      <a href="#analyze" class="btn">Start Now</a>
+    </div>
+    <div class="hero-image">
+      <img src="background.jpg" alt="Cybersecurity Hero">
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about-section">
+    <h2>What is Phishing?</h2>
+    <p>Phishing is a cyberattack where attackers disguise themselves as legitimate entities to steal sensitive information. Stay ahead of attackers with MailGuard's state-of-the-art protection.</p>
+    <div class="about-grid">
+      <div class="about-box">
+        <i class="fas fa-user-shield"></i>
+        <h3>Learn to Identify</h3>
+        <p>Recognize phishing attempts to keep your personal information safe.</p>
+      </div>
+      <div class="about-box">
+        <i class="fas fa-envelope"></i>
+        <h3>Scan Your Inbox</h3>
+        <p>Automatically scan for malicious emails and detect phishing threats.</p>
+      </div>
+      <div class="about-box">
+        <i class="fas fa-lock"></i>
+        <h3>Stay Secure</h3>
+        <p>Stay one step ahead with MailGuard's phishing protection system.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section id="stats" class="stats-section">
+    <h2>Real-Time Stats</h2>
+    <div class="stats-grid">
+      <div class="stats-box">
+        <div class="circle" style="--percentage: 75;">
+          <span>75%</span>
+        </div>
+        <p>Targeted cyberattacks begin with email phishing</p>
+      </div>
+      <div class="stats-box">
+        <div class="circle" style="--percentage: 100;">
+          <span>100%</span>
+        </div>
+        <p>One phishing site created every 20 seconds globally</p>
+      </div>
+      <div class="stats-box">
+        <div class="circle" style="--percentage: 87;">
+          <span>87%</span>
+        </div>
+        <p>Number of phishing-related attacks exceeded</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Analyze Section -->
+<section id="analyze" class="analyze-section">
+    <h2>Analyze Your Inbox</h2>
+    <p>Enter your email and password to analyze your inbox securely.</p>
+    <form id="analyzeForm">
+      <!-- Email Input -->
+      <div class="form-group">
+        <label for="emailInput">Email Address</label>
+        <input 
+          type="email" 
+          id="emailInput" 
+          placeholder="Enter your email" 
+          required>
+      </div>
+      <!-- Password Input -->
+      <div class="form-group">
+        <label for="passwordInput">Password</label>
+        <input 
+          type="password" 
+          id="passwordInput" 
+          placeholder="Enter your password" 
+          required>
+      </div>
+      <!-- Analyze Button -->
+      <button type="submit" id="analyzeBtn">Analyze</button>
+    </form>
+  </section>
+  
+
+  <!-- FAQ Section -->
+  <section id="faq" class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-container">
+      <div class="faq">
+        <h3>What is phishing?</h3>
+        <p>Phishing is a technique where attackers impersonate legitimate entities to steal sensitive information.</p>
+      </div>
+      <div class="faq">
+        <h3>How does MailGuard work?</h3>
+        <p>MailGuard uses AI-powered algorithms to detect phishing emails in your inbox.</p>
+      </div>
+      <div class="faq">
+        <h3>Is my data safe?</h3>
+        <p>Yes! Your data is securely encrypted and never shared with third parties.</p>
+      </div>
+    </div>  
+  </section>
+  
+  
+   <!-- Contact Section -->
+<section id="contact" class="contact-section">
+    <h2>Contact Us</h2>
+    <p>Have questions or need assistance? Drop us a message, and we'll get back to you soon.</p>
+    <form id="contactForm">
+      <!-- Name Field -->
+      <div class="form-group">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+      </div>
+      <!-- Email Field -->
+      <div class="form-group">
+        <label for="email">Your Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+      </div>
+      <!-- Query Field -->
+      <div class="form-group">
+        <label for="message">Your Query</label>
+        <textarea id="message" name="message" placeholder="Enter your message" rows="5" required></textarea>
+      </div>
+      <!-- Submit Button -->
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+  
+  <section id="cta" class="cta-section">
+    <div class="container">
+      <h2>Stay Protected – Start Now!</h2>
+      <p>Join thousands of users protecting their inboxes with MailGuard.</p>
+      <a href="#analyze" class="cta-btn">Get Started</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 MailGuard. Stay Vigilant, Stay Safe.</p>
+  </footer>
+</body>
+</html>

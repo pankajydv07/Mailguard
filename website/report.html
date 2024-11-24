@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Report</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f9;
+      color: #333;
+    }
+
+    header {
+      text-align: center;
+      background: #121212;
+      color: white;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+    }
+
+    /* Summary Stats */
+    .summary-stats {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+      background: #00BFA5;
+      color: white;
+    }
+
+    .stat {
+      text-align: center;
+      font-size: 1.2rem;
+    }
+
+    /* Chart Section */
+    .chart-section {
+      text-align: center;
+      padding: 20px;
+      background: #fff;
+    }
+
+    canvas {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Email List */
+    .email-list {
+      padding: 20px;
+      background: #fff;
+    }
+
+    .email-list ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .email-list li {
+      margin-bottom: 15px;
+      background: #f9f9f9;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .email-list .spam {
+      color: red;
+      font-weight: bold;
+    }
+
+    .email-list .ham {
+      color: green;
+      font-weight: bold;
+    }
+
+    /* Delete Button */
+    .delete-button {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background-color: #FF6F61;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .delete-button:hover {
+      background-color: #e74c3c;
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h1>Email Analysis Report</h1>
+    <p>Your inbox has been analyzed for spam and legitimate emails.</p>
+  </header>
+
+  <!-- Summary Stats -->
+  <section class="summary-stats">
+    <div class="stat">
+      <h2>Total Emails</h2>
+      <p id="totalEmails">Loading...</p>
+    </div>
+    <div class="stat">
+      <h2>Spam Emails</h2>
+      <p id="spamEmails">Loading...</p>
+    </div>
+    <div class="stat">
+      <h2>Ham Emails</h2>
+      <p id="hamEmails">Loading...</p>
+    </div>
+  </section>
+
+  <!-- Chart -->
+  <section class="chart-section">
+    <canvas id="emailChart" width="400" height="200"></canvas>
+  </section>
+
+  <!-- Email Details -->
+  <section class="email-list">
+    <h2>Email Details</h2>
+    <ul id="emailDetails">
+      <!-- Email details will be populated here -->
+    </ul>
+  </section>
+
+  <!-- Delete Button -->
+  <button id="deleteSpamButton" class="delete-button">Delete Spam Emails</button>
+
+  <script>
+    // Simulated data for the emails
+    const emailData = [
+      {
+        content: "Dear students, JETRO is hosting a job fair. Register here: https://japanjobfair.go.jp",
+        label: "Spam",
+        characteristics: ["Contains links", "Mentions urgency", "Unusual domain"]
+      },
+      {
+        content: "Dear students, please find the time table for SEC101 subject.",
+        label: "Ham",
+        characteristics: ["No links", "No urgency", "Recognized sender"]
+      },
+      {
+        content: "Adobe is organizing Analytics Challenge 2023. Register here: https://adobeanalyticschallenge.com",
+        label: "Spam",
+        characteristics: ["Contains links", "Urgency in language", "Google form links"]
+      },
+      {
+        content: "Subject: Urgent! Unlock Your Hidden Potential with Our Exclusive Offer\n\nDear [Your Name],\n\nAre you tired of feeling stuck? Ready to unleash your true potential?\n\nWe have a groundbreaking opportunity that can transform your life!\n\nIntroducing the Ultimate Success Package\n\nThis exclusive package includes:\n\nMind-Bending Secrets: Discover ancient techniques to unlock your hidden powers.\nLife-Changing Affirmations: Reclaim your destiny with positive affirmations.\nInstant Wealth Generator: Get rich quick with our foolproof system.\nLimited Time Offer!\n\nDon't miss this chance to change your life forever. Act now and claim your FREE trial!\n\nClick here to seize your destiny!\n\n[Link to a suspicious website]\n\nDisclaimer: Results may vary.\n\nBest Regards,\nThe Success Team",
+        label: "Spam",
+        characteristics: ["Contains links", "Too good to be true", "Unusual promises"]
+      }
+    ];
+
+    // Populate stats
+    const totalEmails = emailData.length;
+    const spamEmails = emailData.filter(email => email.label === "Spam").length;
+    const hamEmails = totalEmails - spamEmails;
+
+    document.getElementById("totalEmails").textContent = totalEmails;
+    document.getElementById("spamEmails").textContent = spamEmails;
+    document.getElementById("hamEmails").textContent = hamEmails;
+
+    // Populate email details
+    const emailDetails = document.getElementById("emailDetails");
+    emailData.forEach((email, index) => {
+      const emailElement = document.createElement("li");
+      emailElement.innerHTML = `
+        <p><strong>Email Content:</strong> ${email.content}</p>
+        <p><strong>Label:</strong> <span class="${email.label.toLowerCase()}">${email.label}</span></p>
+        <p><strong>Characteristics:</strong> ${email.characteristics.join(", ")}</p>
+      `;
+      emailElement.setAttribute("data-index", index);  // Set index to identify email
+      emailDetails.appendChild(emailElement);
+    });
+
+    // Create Chart
+    const ctx = document.getElementById("emailChart").getContext("2d");
+    new Chart(ctx, {
+      type: "pie",
+      data: {
+        labels: ["Spam", "Ham"],
+        datasets: [{
+          data: [spamEmails, hamEmails],
+          backgroundColor: ["#FF6F61", "#4CAF50"]
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: "bottom"
+          }
+        }
+      }
+    });
+
+    // Add event listener for the "Delete Spam Emails" button
+    document.getElementById("deleteSpamButton").addEventListener("click", () => {
+      // Filter out the spam emails
+      const filteredEmails = emailData.filter(email => email.label !== "Spam");
+      
+      // Update the email list on the screen
+      emailDetails.innerHTML = ""; // Clear the current list
+      filteredEmails.forEach((email, index) => {
+        const emailElement = document.createElement("li");
+        emailElement.innerHTML = `
+          <p><strong>Email Content:</strong> ${email.content}</p>
+          <p><strong>Label:</strong> <span class="${email.label.toLowerCase()}">${email.label}</span></p>
+          <p><strong>Characteristics:</strong> ${email.characteristics.join(", ")}</p>
+        `;
+        emailDetails.appendChild(emailElement);
+      });
+
+      // Update stats
+      const remainingSpam = filteredEmails.filter(email => email.label === "Spam").length;
+      document.getElementById("spamEmails").textContent = remainingSpam;
+      document.getElementById("hamEmails").textContent = filteredEmails.length - remainingSpam;
+
+      // Re-render the chart
+      const updatedSpamEmails = filteredEmails.filter(email => email.label === "Spam").length;
+      new Chart(ctx, {
+        type: "pie",
+        data: {
+          labels: ["Spam", "Ham"],
+          datasets: [{
+            data: [updatedSpamEmails, filteredEmails.length - updatedSpamEmails],
+            backgroundColor: ["#FF6F61", "#4CAF50"]
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
