@@ -29,6 +29,10 @@ Mailguard/
 ```
 
 ---
+## Important : We could not upload our phising_model.pkl due to its large size.
+ Here is the link: https://drive.google.com/file/d/1Y_epwWX7fbufkHq9ooOO4dIpAlXcH_Hf/view?usp=sharing
+
+
 
 ## Requirements
 - Python 3.8 or higher
